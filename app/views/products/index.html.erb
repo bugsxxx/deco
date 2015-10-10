@@ -1,4 +1,12 @@
-<h1>Listing products</h1>
+<h1>Produtos</h1>
+
+<%= form_tag products_path, method: :get do %>
+  <p>
+    <%= text_field_tag :query, params[:query] %>
+    <%= submit_tag "search", name: nil %>
+  </p>
+<% end %>
+
 
 <table>
   <thead>
