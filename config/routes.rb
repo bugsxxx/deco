@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :sidekiqexemplos
+
   resources :products
 
   resources :criticas

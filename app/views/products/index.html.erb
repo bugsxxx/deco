@@ -1,14 +1,32 @@
 <h1>Produtos</h1>
 
+
+<div class="" style="position:absolute; right:40px;">
+  
+  <p><strong>Testar SideKiq:</strong></p>
+      <%= link_to 'teste Sidekiq', new_sidekiqexemplo_path %>
+</div>
+ 
+<div style="">
+
+
+
+
+</div>
+
+<p><strong>Testar elasticSearch/Chewy (filtra a tres campos - nome cor descrição):</strong></p>
 <%= form_tag products_path, method: :get do %>
   <p>
     <%= text_field_tag :query, params[:query] %>
     <%= submit_tag "search", name: nil %>
+
+    
   </p>
 <% end %>
+</div>
 
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Name</th>
@@ -35,3 +53,8 @@
 <br>
 
 <%= link_to 'New Product', new_product_path %>
+
+
+
+
+</div>

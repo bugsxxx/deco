@@ -1,0 +1,22 @@
+
+<!DOCTYPE html>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Tipo:</strong>
+  <%= @sidekiqexemplo.tipo %>
+</p>
+
+<p>
+  <strong>Codigo:</strong>
+
+  <div>
+  
+  <%= @sidekiqexemplo.codigo.html_safe %>
+
+  </div>
+</p>
+
+<%= link_to 'Edit', edit_sidekiqexemplo_path(@sidekiqexemplo) %> |
+<%= link_to 'Back', products_path %>

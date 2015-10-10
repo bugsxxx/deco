@@ -1,0 +1,27 @@
+<h1>Listing sidekiqexemplos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Tipo</th>
+      <th>Codigo</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sidekiqexemplos.each do |sidekiqexemplo| %>
+      <tr>
+        <td><%= sidekiqexemplo.tipo %></td>
+        <td><%= sidekiqexemplo.codigo %></td>
+        <td><%= link_to 'Show', sidekiqexemplo %></td>
+        <td><%= link_to 'Edit', edit_sidekiqexemplo_path(sidekiqexemplo) %></td>
+        <td><%= link_to 'Destroy', sidekiqexemplo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sidekiqexemplo', new_sidekiqexemplo_path %>
