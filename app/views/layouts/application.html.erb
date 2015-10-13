@@ -1,14 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="decoProteste">
 <head>
+
   <title>Proteste</title>
+  
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.js"></script>
+  
+  
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
-<div class="container-fluid">
+<div class="container-fluid" ng-view>
 <%= yield %>
 </div>
 </body>

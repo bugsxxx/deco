@@ -1,24 +1,46 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
-  respond_to :json, :html
+  skip_before_action :verify_authenticity_token
+  skip_before_filter :verify_authenticity_token
+  skip_filter :verify_signed_out_user
+
 
   # GET /products
   # GET /products.json
   def index
 
-    if params[:query]
-      @products = Product.search(params[:query])
-
-    else
-       @products = Product.all
+    /# @products = Product.all
+    respond_with(@products) do |format|
+      format.json { render :json => @products.as_json }
+      format.html
     end
-   
-  end
+   /#
+    
+    @prods= Product.all
+
+
+    respond_to do |format|
+       if params[:query]
+       
+        @prods = Product.search(params[:query])
+        
+        format.html { @products = Product.search(params[:query]) }
+        format.json { render :json => @prods }  #@products = Product.search(params[:query]) 
+      else
+         @prods = Product.all
+        #@products = Product.all
+        format.html { @products = Product.all }
+        format.json { render :json => @prods }
+      end
+    end
+
+   end
 
   # GET /products/1
   # GET /products/1.json
   def show
+    render :json => {:data => @product }
   end
 
   # GET /products/new
@@ -69,6 +91,41 @@ class ProductsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+
+  def search
+
+    
+       if params[:query]
+       
+        @prods = Product.search(params[:query])
+        
+        #format.html { @products = Product.search(params[:query]) }
+        #format.json { render :json => @prods }  #@products = Product.search(params[:query]) 
+
+        render  :json =>  {
+                          :data => @prods
+                          
+                          
+
+
+                }  
+      else
+         @prods = Product.all
+        #@products = Product.all
+        #format.html { @products = Product.all }
+        render :json => {:data => @prods }
+      end
+   
+
+
+
+    
+  end
+
+
+
+ 
 
 
 

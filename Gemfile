@@ -36,15 +36,14 @@ gem 'chewy'
 
 gem 'sidekiq'
 
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+#necessario para monitorizar os works
+gem 'sinatra', require: false
+gem 'slim'
+#####################################
 
-# Use unicorn as the app server
-# gem 'unicorn'
 
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+gem 'angularjs-rails'
+gem 'angular-ui-bootstrap-rails' #for bootstrap UI
 
-# Use debugger
-# gem 'debugger', group: [:development, :test]
+
 

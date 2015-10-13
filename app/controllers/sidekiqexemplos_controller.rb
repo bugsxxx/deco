@@ -1,6 +1,11 @@
 class SidekiqexemplosController < ApplicationController
   before_action :set_sidekiqexemplo, only: [:show, :edit, :update, :destroy]
 
+
+  skip_before_action :verify_authenticity_token
+  skip_before_filter :verify_authenticity_token
+  skip_filter :verify_signed_out_user
+
   # GET /sidekiqexemplos
   # GET /sidekiqexemplos.json
   def index
@@ -28,9 +33,12 @@ class SidekiqexemplosController < ApplicationController
 
     if @sidekiqexemplo.save
 
+      render :json => {:data => @sidekiqexemplo }
 
       PygmentsWorker.perform_async(@sidekiqexemplo.id)
-      redirect_to @sidekiqexemplo
+     
+
+      
 
     else
       render :new

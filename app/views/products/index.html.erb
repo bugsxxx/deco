@@ -1,18 +1,16 @@
+<div ng-controller="ProductsCtrl">
+
 <h1>Produtos</h1>
 
 
+<!--
 <div class="" style="position:absolute; right:40px;">
   
   <p><strong>Testar SideKiq:</strong></p>
       <%= link_to 'teste Sidekiq', new_sidekiqexemplo_path %>
 </div>
  
-<div style="">
 
-
-
-
-</div>
 
 <p><strong>Testar elasticSearch/Chewy (filtra a tres campos - nome cor descrição):</strong></p>
 <%= form_tag products_path, method: :get do %>
@@ -23,7 +21,9 @@
     
   </p>
 <% end %>
-</div>
+
+
+
 
 
 <table class="table">
@@ -42,6 +42,7 @@
         <td><%= product.name %></td>
         <td><%= product.price %></td>
         <td><%= product.cor %></td>
+
         <td><%= link_to 'Show', product %></td>
         <td><%= link_to 'Edit', edit_product_path(product) %></td>
         <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -54,7 +55,294 @@
 
 <%= link_to 'New Product', new_product_path %>
 
+!-->
 
 
+  
+  <form class="form-inline">
+  <div class="form-group">
+    
+    <input type="text" ng-model="query1" class="form-control" style="width:200px !important;">
+    
+  </div>
+  <button class="btn btn-primary" ng-click="search()">Search</button>
+  <button class="btn btn-primary"   data-toggle="modal" data-target="#myModal2" style="margin-left:70%;">Novo</button>
+  </form>
+
+
+  
+
+
+  <table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Cor</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+      <tr ng-repeat="p in res"> 
+        <td>{{p.name}}</td>
+        <td>{{p.price}}</td>
+        <td>{{p.cor}}</td>
+  
+        
+        <td><button class="btn btn-primary btn-xs" ng-click="showProd(p._id.$oid);" data-toggle="modal" data-target="#myModal">Show</button></td>
+        <!--<td><button class="btn btn-warning btn-xs" ng-click="editProd(p._id.$oid);" data-toggle="modal" data-target="#myModal1">Edit</button></td>!-->
+        <td><button class="btn btn-danger btn-xs" ng-click="deleteProd(p._id.$oid);">Delete</button></td>
+      </tr>
+   
+  </tbody>
+</table>
+
+
+
+  <div class="" style="position:absolute; right:40px;">
+  
+   <!--<a class="btn btn-primary" href="/sidekiqexemplos/new">Teste SideKiq</a>
+
+
+ <button class="btn btn-primary" ng-click="sidekiq();">SideKiq</button>!-->
 
 </div>
+
+
+
+<button class="btn btn-primary"   data-toggle="modal" data-target="#myModal3" style="margin-left:90%;">Sidekiq</button>
+
+
+
+
+
+
+
+<div style="padding-left:100px !important;">
+
+<form class="{{mostra}}">
+  <div class="form-group">
+    <label for="exampleInputEmail1">Email address</label>
+    <input type="text" class="form-control" id="" placeholder="Linguagem a utilizar ex:(ruby)" ng-model="lang">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Código</label>
+    <textarea rows="8" cols="50" class="form-control" ng-model="cod" placeholder="codigo a pigmentar
+    ex: def teste   
+
+    (....)
+
+    end"></textarea>
+    
+  </div>
+ 
+  <button type="" class="btn btn-default" ng-click="sidekiqnew();" >Submit</button>
+</form>
+</div>
+
+
+
+
+
+<!-- Modal Show-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" ng-model="showform">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Produto</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal">
+            <div class="form-group">
+              <label for="inputEmail3" class="col-sm-2 control-label">Designação:</label>
+              <div class="col-sm-10">
+                <input type="email" class="form-control" id=" " value="{{pro.data.name}}">
+               
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputPassword3" class="col-sm-2 control-label">Cor:</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="" placeholder="" value="{{pro.data.cor}}">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="inputPassword3" class="col-sm-2 control-label">Descrição:</label>
+              <div class="col-sm-10">
+               <textarea class="form-control" rows="5" id="">{{pro.data.descr}}</textarea>
+               
+              </div>
+            </div>
+
+             <div class="form-group">
+              <label for="" class="col-sm-2 control-label">Preço:</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="" placeholder="" value="{{pro.data.price}}">
+              </div>
+            </div>
+           
+            
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" >Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal Edit-->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Pigmentar o Códido (sidekiq exemplo)</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal">
+            <div class="form-group">
+              <label for="inputEmail3" class="col-sm-2 control-label">Designação:</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control"  ng-model="prod.name">
+               
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputPassword3" class="col-sm-2 control-label">Cor:</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" placeholder="" ng-model="prod.cor">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="inputPassword3" class="col-sm-2 control-label">Descrição:</label>
+              <div class="col-sm-10">
+               <textarea class="form-control" rows="5" id="" ng-model="prod.descr"></textarea>
+               
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="" class="col-sm-2 control-label">Preço:</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="" placeholder="" ng-model="prod.price">
+              </div>
+            </div>
+           
+            
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="newProd(prod);" name="prodForm">Guardar</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal create-->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Pigmentar o Códido (sidekiq exemplo)</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal">
+            <div class="form-group">
+              <label for="inputEmail3" class="col-sm-2 control-label">Designação:</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control"  ng-model="prod.name">
+               
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputPassword3" class="col-sm-2 control-label">Cor:</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" placeholder="" ng-model="prod.cor">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="inputPassword3" class="col-sm-2 control-label">Descrição:</label>
+              <div class="col-sm-10">
+               <textarea class="form-control" rows="5" id="" ng-model="prod.descr"></textarea>
+               
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="" class="col-sm-2 control-label">Preço:</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="" placeholder="" ng-model="prod.price">
+              </div>
+            </div>
+           
+            
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="newProd(prod);" name="prodForm">Guardar</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- Modal sidekiq-->
+<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Produto</h4>
+      </div>
+      <div class="modal-body">
+
+          <form class="form-horizontal">
+                <div class="form-group">
+                  <label for="" class="col-sm-2 control-label">Linguagem:</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control"  placeholder="ex: Ruby" ng-model="sidekiqexemplo.tipo">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="" class="col-sm-2 control-label">Código</label>
+                  <div class="col-sm-10">
+                    <textarea rows="5" cols="5" class="form-control"  placeholder="def metodo
+                    @products = Products.all
+                    end" ng-model="sidekiqexemplo.codigo"></textarea> 
+                  </div>
+                </div>
+               
+                
+          </form>
+
+        </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="sideTeste(sidekiqexemplo);" name="prodForm">Pigmentar!</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+
+
+
+
+

@@ -2,7 +2,6 @@
 
 
 
-
 .hll { background-color: #ffffcc }
 .c { color: #408080; font-style: italic } /* Comment */
 .err { border: 1px solid #FF0000 } /* Error */
@@ -64,3 +63,19 @@
 .vg { color: #19177C } /* Name.Variable.Global */
 .vi { color: #19177C } /* Name.Variable.Instance */
 .il { color: #666666 } /* Literal.Number.Integer.Long */
+
+
+
+
+
+.show {
+
+	
+	width: 300px !important;
+	display: none !important;
+}
+
+.showtrue {
+	width: 300px !important;
+	display: : inline !important;
+}
